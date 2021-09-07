@@ -26,20 +26,19 @@ getSW n
        ps <- getSW (n - 1)
        return (p : ps)
 
-t = transpose
-z = zipWith
-as a = [1 / (1 + exp (-b)) | b <- a]
-ms m = [as r | r <- m]
-ax v = [x * (1 - x) | x <- v]
-mx m = [ax r | r <- m]
-sm = z (z (-))
-ml = z (z (*))
-ad = z (z (+))
-dp v w = sum (z (*) v w)
-mp m n = [map (dp r) (t n) | r <- m]
-g t w = ms (mp t w)
-tr a b c n
-  = (iterate (\ x -> (ad (mp (t c) (ml (sm b (g c x)) (mx (g c x))))) x) a) !! n
+t=transpose
+z=zipWith
+as a=[1/(1+exp(-b))|b<-a]
+ms m=[as r |r<-m]
+ax v=[x*(1-x)|x<-v]
+mx m=[ax r |r<-m]
+sm=z(z(-))
+ml=z(z(*))
+ad=z(z(+))
+dp v w=sum(z(*)v w)
+mp m n=[map(dp r)(t n)|r<-m]
+g t w=ms(mp t w)
+tr a b c n=(iterate(\x->(ad(mp(t c)(ml(sm b(g c x))(mx(g c x)))))x)a)!!n
 
 mvml :: Matrix -> Vector -> Vector
 mvml m v = zipWith (*) v (concat m)
